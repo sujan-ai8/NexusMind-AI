@@ -76,3 +76,8 @@ pnpm-debug.log*
 # Docker
 .dockerignore
 
+# Storage and Spark warehouse
+storage/
+*.parquet
+
+

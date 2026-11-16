@@ -10,6 +10,15 @@ os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 os.environ["ENVIRONMENT"] = "testing"
 os.environ["SECRET_KEY"] = "test-secret-key-for-nexusmind-phase1-testing-32chars"
 
+import sys
+if sys.platform == "win32":
+    current_jh = os.environ.get("JAVA_HOME", "")
+    if not current_jh or not os.path.exists(current_jh) or current_jh.startswith("/"):
+        for candidate in [r"C:\Program Files\Java\jdk-21.0.10", r"C:\Program Files\Java\jdk-17"]:
+            if os.path.exists(candidate):
+                os.environ["JAVA_HOME"] = candidate
+                break
+
 from apps.api.app.core.security import get_password_hash
 from apps.api.app.db.base import Base
 from apps.api.app.db.session import get_db
